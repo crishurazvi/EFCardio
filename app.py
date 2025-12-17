@@ -143,9 +143,9 @@ with col_left:
     # Sectiunea 1
     with st.expander("PLAYER 1 (GENERAL)", expanded=True):
         c_a, c_b = st.columns(2)
-        medecin = c_a.text_input("MEDIC", value="Dr. AL HALABY")
+        medecin = c_a.text_input("MEDIC", value="Dr. CRISAN")
         infirmiere = c_b.text_input("ASISTENT", value="FARRAPEIRA")
-        protocole = st.selectbox("LEVEL (PROTOCOL)", ["VELO FEMME", "30W/2'/30W", "BRUCE", "RAMPE"], index=1)
+        protocole = st.selectbox("LEVEL (PROTOCOL)", ["VELO HOMME", "VELO FEMME", "30W/2'/30W", "BRUCE", "RAMPE"], index=1)
 
     # Sectiunea 2
     with st.expander("STAMINA (EFORT)", expanded=True):
