@@ -3,264 +3,263 @@ from datetime import datetime
 
 # --- CONFIGURARE PAGINĂ ---
 st.set_page_config(
-    page_title="CardioReport 8-BIT",
-    page_icon="👾",
+    page_title="Cardio 8-BIT",
+    page_icon="❤",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# --- CSS PENTRU STIL 8-BIT / RETRO ---
+# --- CSS RE-DESIGN (ROBUST & CLEAN) ---
 st.markdown("""
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
     <style>
-    /* --- FONT GLOBAL --- */
-    html, body, [class*="css"] {
-        font-family: 'Press Start 2P', cursive;
-    }
-    
-    /* --- FUNDAL --- */
+    /* --- RESET & FONTURI --- */
     .stApp {
-        background-color: #202040;
-        background-image: linear-gradient(to right, #252550 1px, transparent 1px),
-                          linear-gradient(to bottom, #252550 1px, transparent 1px);
-        background-size: 20px 20px;
-    }
-
-    /* --- CONTAINERE GENERICE --- */
-    .block-container {
-        padding-top: 2rem;
-    }
-
-    /* --- HEADERS --- */
-    h1, h2, h3 {
-        color: #ffcc00 !important;
-        text-shadow: 4px 4px #000000;
-        text-transform: uppercase;
-        line-height: 1.5 !important;
-    }
-    p, label, .stMarkdown {
-        color: #ffffff !important;
-        font-size: 0.8rem !important;
-    }
-
-    /* --- INPUTURI & WIDGET-URI --- */
-    .stTextInput > div > div, 
-    .stNumberInput > div > div, 
-    .stSelectbox > div > div {
-        background-color: #ffffff !important;
-        color: #000000 !important;
-        border: 4px solid #000000 !important;
-        border-radius: 0px !important;
-        box-shadow: 6px 6px 0px #000000 !important;
+        background-color: #bcbcbc; /* Gri Retro */
+        font-family: 'VT323', monospace;
     }
     
-    input, .stSelectbox [data-baseweb="select"] span {
-        color: #000000 !important;
-        font-family: 'Press Start 2P', cursive !important;
-        font-size: 0.7rem !important;
+    /* Titluri Pixelate */
+    h1, h2, h3 {
+        font-family: 'Press Start 2P', cursive;
+        color: #2d2d2d;
+        text-transform: uppercase;
+        line-height: 1.6 !important;
+    }
+    
+    h1 {
+        text-shadow: 3px 3px 0px #ffffff;
+        color: #cf1020; /* Roșu Mario */
+        font-size: 24px !important;
     }
 
-    /* --- EXPANDER (Retro Box) --- */
-    .streamlit-expanderHeader {
-        background-color: #6c5ce7 !important;
-        color: white !important;
-        border: 4px solid #000000 !important;
-        border-radius: 0px !important;
-        margin-bottom: 10px;
+    /* --- INPUTURI (SĂ FIE VIZIBILE) --- */
+    /* Etichetele de deasupra inputurilor */
+    .stTextInput label, .stNumberInput label, .stSelectbox label {
+        font-family: 'Press Start 2P', cursive;
+        font-size: 10px !important;
+        color: #000000 !important;
+        margin-bottom: 5px;
     }
-    .streamlit-expanderContent {
-        border: 4px solid #000000 !important;
-        border-top: none !important;
-        background-color: #303060 !important;
+
+    /* Cutiile de input propriu-zise */
+    div[data-baseweb="input"], div[data-baseweb="select"] > div {
+        background-color: #ffffff !important;
+        border: 2px solid #000000 !important;
         border-radius: 0px !important;
-        margin-bottom: 20px;
+        box-shadow: 4px 4px 0px #888888 !important;
+    }
+
+    /* Textul din interiorul inputurilor */
+    input, .stSelectbox div {
+        font-family: 'VT323', monospace !important;
+        font-size: 20px !important;
+        color: #000000 !important;
+    }
+
+    /* --- EXPANDERS (Ferestre Retro) --- */
+    .streamlit-expanderHeader {
+        background-color: #5c94fc !important; /* Albastru deschis */
+        border: 2px solid #000000;
+        border-radius: 0px;
+        font-family: 'Press Start 2P', cursive;
+        font-size: 12px !important;
+        color: #ffffff !important;
+        text-shadow: 2px 2px 0px #000000;
+    }
+    
+    .streamlit-expanderContent {
+        background-color: #e0e0e0 !important;
+        border: 2px solid #000000;
+        border-top: none;
+        color: #000000 !important;
     }
 
     /* --- BUTOANE --- */
     .stButton > button {
-        background-color: #ff3333 !important;
-        color: white !important;
-        border: 4px solid #000000 !important;
-        border-radius: 0px !important;
+        width: 100%;
+        background-color: #ffcc00 !important;
+        color: #000000 !important;
         font-family: 'Press Start 2P', cursive !important;
-        box-shadow: 6px 6px 0px #000000 !important;
-        transition: all 0.1s;
+        font-size: 12px !important;
+        border: 2px solid #000000 !important;
+        border-radius: 0px !important;
+        box-shadow: 4px 4px 0px #000000 !important;
+        padding: 15px !important;
+    }
+    .stButton > button:hover {
+        background-color: #ffe066 !important;
+        top: -2px;
     }
     .stButton > button:active {
+        box-shadow: 0px 0px 0px #000000 !important;
         transform: translate(4px, 4px);
-        box-shadow: 2px 2px 0px #000000 !important;
     }
 
-    /* --- ZONA RAPORT (CRT MONITOR STYLE) --- */
-    .report-container {
-        background-color: #000000;
+    /* --- ECRAN TERMINAL (PREVIEW) --- */
+    .retro-terminal {
+        background-color: #1a1a1a;
+        border: 4px solid #555;
+        border-radius: 10px; /* Ușor rotunjit ca un TV vechi */
         padding: 20px;
-        border: 8px solid #444;
-        border-radius: 0px;
-        box-shadow: inset 0 0 20px rgba(0,255,0,0.5);
-        color: #33ff33;
-        font-family: 'Courier New', monospace; /* Monospace pt lizibilitate la text mult */
-        font-weight: bold;
-        line-height: 1.6;
-        position: relative;
+        color: #00ff00;
+        font-family: 'VT323', monospace;
+        font-size: 18px;
+        line-height: 1.4;
+        box-shadow: inset 0 0 20px #000;
+        height: 500px;
+        overflow-y: auto;
     }
-    /* Linie de scanare decorativă */
-    .report-container::before {
-        content: " ";
-        display: block;
+    .scanline {
+        width: 100%;
+        height: 100px;
+        z-index: 10;
+        background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(255, 255, 255, 0.04) 50%, rgba(0,0,0,0) 100%);
+        opacity: 0.1;
         position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-        z-index: 2;
-        background-size: 100% 2px, 3px 100%;
+        bottom: 100%;
+        animation: scanline 10s linear infinite;
         pointer-events: none;
     }
-    
-    /* Textarea stilat */
-    .stTextArea textarea {
-        background-color: #000000 !important;
-        color: #33ff33 !important;
-        font-family: 'Courier New', monospace !important;
-        border: 4px solid #33ff33 !important;
-        border-radius: 0px !important;
+    @keyframes scanline {
+        0% { bottom: 100%; }
+        100% { bottom: -100%; }
     }
+    
+    /* Ascundere elemente default Streamlit inutile */
+    header {visibility: hidden;}
+    footer {visibility: hidden;}
+    
     </style>
 """, unsafe_allow_html=True)
 
 # --- HEADER ---
-c_head1, c_head2 = st.columns([1, 5])
-with c_head1:
-    # Imagine pixelată (Heart Container din Zelda style)
-    st.image("https://media.tenor.com/images/1c8f654df24458f31518b52f99092497/tenor.png", width=100)
-with c_head2:
-    st.title("CardioReport 8-BIT")
-    st.markdown("PRESS START TO GENERATE REPORT")
+col_logo, col_title = st.columns([1, 5])
+with col_logo:
+    st.markdown("<div style='font-size: 60px; text-align: center;'>❤️</div>", unsafe_allow_html=True)
+with col_title:
+    st.title("CARDIO REPORT GEN")
+    st.markdown("**Version 1.0 // 8-BIT EDITION**")
 
 st.markdown("---")
 
-# --- LAYOUT PRINCIPAL ---
-col_input, col_preview = st.columns([1.1, 1])
+# --- LOGICA APLICAȚIEI ---
 
-with col_input:
-    st.subheader("INSERT COIN / DATA")
+col_left, col_right = st.columns([1, 1])
+
+with col_left:
+    st.markdown("### 1. INSERT DATA")
     
-    with st.expander("1. PLAYER INFO (GENERAL)", expanded=True):
+    with st.expander("👤 PLAYER INFO", expanded=True):
         c1, c2 = st.columns(2)
-        medecin = c1.text_input("MEDECIN", value="Dr. AL HALABY")
-        infirmiere = c2.text_input("INFIRMIERE", value="FARRAPEIRA")
-        protocole = st.selectbox("LEVEL / PROTOCOLE", ["VELO FEMME", "30W/2'/30W", "BRUCE", "RAMPE"], index=1)
+        medecin = c1.text_input("MEDIC", value="Dr. AL HALABY")
+        infirmiere = c2.text_input("ASISTENT", value="FARRAPEIRA")
+        protocole = st.selectbox("LEVEL SELECT", ["VELO FEMME", "30W/2'/30W", "BRUCE", "RAMPE"], index=1)
 
-    with st.expander("2. STAMINA (EFFORT)", expanded=True):
-        c1, c2, c3 = st.columns(3)
-        duree = c1.text_input("TIME (min:sec)", value="06:08")
-        charge = c2.number_input("POWER (Watts)", value=120, step=10)
+    with st.expander("⚡ STAMINA / EFFORT", expanded=True):
+        c1, c2 = st.columns(2)
+        duree = c1.text_input("TIME (MIN)", value="06:08")
+        charge = c2.number_input("POWER (W)", value=120, step=10)
+        
+        c3, c4 = st.columns(2)
         mets = c3.number_input("METS", value=4.6, step=0.1)
-        motif = st.selectbox("GAME OVER REASON", ["Essoufflement + Fatigue des jambes", "Douleur thoracique", "Épuisement", "Haut risque tensionnel"])
+        motif = c4.selectbox("GAME OVER REASON", ["Essoufflement", "Douleur thoracique", "Épuisement", "Haut risque TA"])
 
-    with st.expander("3. HEALTH BAR (HEMO)", expanded=True):
-        st.markdown("HP (Heart Rate - bpm)")
+    with st.expander("💓 HEART STATS", expanded=True):
+        st.caption("BEATS PER MINUTE")
         fc1, fc2, fc3 = st.columns(3)
-        fc_repos = fc1.number_input("HP Start", value=71)
-        fc_max = fc2.number_input("HP Max", value=116)
-        fc_recup = fc3.number_input("HP Recov", value=91)
+        fc_repos = fc1.number_input("FC START", value=71)
+        fc_max = fc2.number_input("FC MAX", value=116)
+        fc_recup = fc3.number_input("FC END", value=91)
         
-        c_fmt1, c_fmt2 = st.columns(2)
-        fmt_calc = c_fmt1.number_input("Max HP Calc", value=145)
+        fmt_calc = st.number_input("TARGET MAX (FMT)", value=145)
         
+        # Calcul procent
         if fmt_calc > 0:
             perc_calc = int((fc_max / fmt_calc) * 100)
         else:
             perc_calc = 0
             
-        # Bara de progres retro
-        st.write(f"SCORE: {perc_calc}% FMT")
+        st.markdown(f"**ACHIEVEMENT:** {perc_calc}% OF MAX")
         st.progress(min(perc_calc, 100))
 
-        st.markdown("PRESSURE (mmHg)")
+        st.markdown("---")
+        st.caption("PRESSURE (mmHg)")
         ta1, ta2 = st.columns(2)
-        ta_repos = ta1.text_input("TA Start", value="115/60")
-        ta_max = ta2.text_input("TA Max", value="174/70")
+        ta_repos = ta1.text_input("TA START", value="115/60")
+        ta_max = ta2.text_input("TA MAX", value="174/70")
 
-    with st.expander("4. STATUS EFFECTS (ECG)", expanded=True):
-        douleur = st.radio("DAMAGE RECEIVED?", ["Absence de douleurs", "Angor typique", "Douleur atypique"])
-        st_seg = st.text_input("ST Segment", value="Modification non significative")
-        rythme = st.text_input("Rhythm", value="Quelques ESA, absence de troubles majeurs")
-        profil_ta = st.selectbox("Pressure Profile", ["Normal à l'effort", "Hypertensif", "Hypotensif"])
+    with st.expander("📟 SYSTEM LOGS (ECG)", expanded=True):
+        douleur = st.selectbox("SYMPTOMS", ["Absence de douleurs", "Angor typique", "Douleur atypique"])
+        st_seg = st.text_input("ST SEGMENT", value="Modif. non significative")
+        rythme = st.text_input("RHYTHM", value="Quelques ESA, pas de troubles majeurs")
+        
+        c_end1, c_end2 = st.columns(2)
+        perf_type = c_end1.selectbox("RANK", ["Sous-maximale", "Maximale"])
+        conclusion_type = c_end2.selectbox("RESULT", ["NEGATIF", "POSITIF (Ischemique)", "NON CONCLUANT"])
 
-    with st.expander("5. FINAL BOSS (CONCLUSION)", expanded=True):
-        perf_type = st.selectbox("Performance Rank", ["Sous-maximale", "Maximale"])
-        conclusion_type = st.selectbox("Mission Outcome", 
-                                       ["Test d'effort négatif cliniquement et électriquement", 
-                                        "Test positif (ischémique)", 
-                                        "Test non concluant"])
+# --- GENERARE TEXT ---
+def generate_report():
+    return f"""
+========================================
+      RAPORT TEST DE EFORT - v8.0
+========================================
 
-# --- GENERARE RAPORT (TEXT) ---
-def generate_text():
-    report = f"""**COMPTE RENDU D'ÉPREUVE D'EFFORT**
+>> PERSONAL MEDICAL
+   Medic    : {medecin}
+   Asistent : {infirmiere}
+   Protocol : {protocole}
 
-**Médecin :** {medecin}
-**Infirmière :** {infirmiere}
-**Protocole :** {protocole}
+>> PERFORMANTA
+   Timp     : {duree}
+   Sarcina  : {charge} W ({mets} METS)
+   Stop     : {motif}
 
----
-### **DÉROULEMENT DE L'ÉPREUVE**
-* **Durée de l'effort :** {duree} min.
-* **Charge maximale :** {charge} Watts ({mets} METS).
-* **Motif d'arrêt :** {motif}.
+>> HEMODINAMICA [FC]
+   Repos    : {fc_repos} bpm
+   Maxim    : {fc_max} bpm
+   Target   : {perc_calc}% din {fmt_calc}
+   Recup.   : {fc_recup} bpm
 
-### **DONNÉES HÉMODYNAMIQUES**
-* **Fréquence Cardiaque (FC) :**
-    * Repos : {fc_repos} bpm.
-    * Max : {fc_max} bpm ({perc_calc}% de la FMT {fmt_calc}).
-    * Récupération : {fc_recup} bpm.
-* **Tension Artérielle (TA) :**
-    * Repos : {ta_repos} mmHg.
-    * Max : {ta_max} mmHg.
-    * Profil : {profil_ta}.
+>> TENSIUNE ARTERIALA [TA]
+   Repos    : {ta_repos} mmHg
+   Maxim    : {ta_max} mmHg
 
-### **DONNÉES CLINIQUES ET ECG**
-* **Symptômes :** {douleur}.
-* **ECG Repos :** Normal.
-* **ECG Effort :** {st_seg}. {rythme}.
-* **ECG Récupération :** Retour au calme sans particularité.
+>> ANALIZA ECG
+   Simptome : {douleur}
+   ECG Repos: Normal
+   ECG Efort: {st_seg}
+   Ritm     : {rythme}
 
-### **CONCLUSION**
-Performance **{perf_type.lower()}**.
-L'ECG de repos est normal. Pas de modification ischémique significative du segment ST.
-{rythme}.
+----------------------------------------
+CONCLUZIE: {conclusion_type}
+Performanta {perf_type}
+----------------------------------------
+    """
 
-**SYNTHÈSE : {conclusion_type.upper()}**
-"""
-    return report
+raport_final = generate_report()
 
-report_text = generate_text()
-
-# --- COLOANA PREVIEW ---
-with col_preview:
-    st.subheader("💾 SAVE GAME / PREVIEW")
+with col_right:
+    st.markdown("### 2. PREVIEW MONITOR")
     
-    # Monitor CRT Simulat
+    # Simulare Monitor CRT
     st.markdown(f"""
-    <div class="report-container">
-        {report_text.replace(chr(10), '<br>')}
-        <br><br>
-        <span style="animation: blink 1s infinite;">_</span>
+    <div class="retro-terminal">
+        <div class="scanline"></div>
+        {raport_final.replace(chr(10), '<br>').replace(' ', '&nbsp;')}
+        <br>
+        <span style="animation: blink 1s infinite; background-color: #00ff00; color: #000;">_</span>
     </div>
     <style>
-    @keyframes blink {{
-      0% {{ opacity: 0; }}
-      50% {{ opacity: 1; }}
-      100% {{ opacity: 0; }}
-    }}
+    @keyframes blink {{ 0% {{opacity: 0;}} 50% {{opacity: 1;}} 100% {{opacity: 0;}} }}
     </style>
     """, unsafe_allow_html=True)
     
-    st.write("---")
-    st.subheader("📋 COPY LOOT")
-    st.text_area("RAW DATA", value=report_text, height=200)
+    st.write("")
     
-    if st.button("RESTART LEVEL"):
-        st.experimental_rerun()
+    c_btn1, c_btn2 = st.columns(2)
+    with c_btn1:
+        if st.button("RELOAD"):
+            st.rerun()
+    with c_btn2:
+        st.download_button("SAVE TO DISK", data=raport_final, file_name="raport_8bit.txt")
